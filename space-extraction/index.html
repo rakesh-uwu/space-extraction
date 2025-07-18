@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Extraction - Escape the Cosmic Labyrinth</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="mainMenu" class="screen active">
+        <div class="menu-background">
+            <canvas id="menuCanvas" width="800" height="600"></canvas>
+        </div>
+        <div class="menu-content">
+            <div class="game-logo">
+                <h1>SPACE EXTRACTION</h1>
+                <p class="subtitle">Extract Resources from Cosmic Labyrinths</p>
+            </div>
+            
+            <div class="menu-buttons">
+                <button id="playBtn" class="menu-btn primary">START EXTRACTION</button>
+                <button id="levelsBtn" class="menu-btn">SELECT MAZE</button>
+                <button id="instructionsBtn" class="menu-btn">EXTRACTION MANUAL</button>
+            </div>
+            <div class="rawkes">
+                <p>made by hackclubber <a href="https://github.com/rakesh-uwu/">RAKesUwU</a></p>
+            </div>
+        </div>
+    </div>
+    <div id="levelSelect" class="screen">
+        <div class="menu-background">
+            <canvas id="levelCanvas" width="800" height="600"></canvas>
+        </div>
+        <div class="level-content active"> 
+            <h2>SELECT MAZE COMPLEXITY</h2>
+            <div class="level-grid">
+                <div class="level-card" data-level="easy">
+                    <h3>ASTEROID FIELD</h3>
+                    <div class="level-stats">
+                        <p>• Simple maze layout</p>
+                        <p>• Fewer obstacles</p>
+                        <p>• Wide pathways</p>
+                        <p>• Perfect for beginners</p>
+                    </div>
+                    <button class="level-btn" data-difficulty="easy">EXTRACT</button>
+                </div>
+                <div class="level-card" data-level="normal">
+                    <h3>PLANETARY MAZE</h3>
+                    <div class="level-stats">
+                        <p>• Moderate complexity</p>
+                        <p>• Planet obstacles</p>
+                        <p>• Standard pathways</p>
+                        <p>• Balanced challenge</p>
+                    </div>
+                    <button class="level-btn" data-difficulty="normal">EXTRACT</button>
+                </div>
+                <div class="level-card" data-level="hard">
+                    <h3>SPACE STATION</h3>
+                    <div class="level-stats">
+                        <p>• Complex structures</p>
+                        <p>• Narrow passages</p>
+                        <p>• Multiple dead ends</p>
+                        <p>• Expert navigation</p>
+                    </div>
+                    <button class="level-btn" data-difficulty="hard">EXTRACT</button>
+                </div>
+                <div class="level-card" data-level="nightmare">
+                    <h3>COSMIC LABYRINTH</h3>
+                    <div class="level-stats">
+                        <p>• Maximum complexity</p>
+                        <p>• Dense obstacles</p>
+                        <p>• Minimal clearance</p>
+                        <p>• Ultimate challenge</p>
+                    </div>
+                    <button class="level-btn" data-difficulty="nightmare">EXTRACT</button>
+                </div>
+            </div>
+            <button id="backToMenu" class="menu-btn secondary">BACK TO MAIN MENU</button>
+        </div>
+        <div id="levelSelectionPanel" class="overlay hidden">
+            <div class="overlay-content level-select-panel">
+                <h2 id="levelPanelTitle">SELECT MAZE LEVEL</h2>
+                <div class="level-buttons-grid">
+                    <button class="level-num-btn" data-level="1">1</button>
+                    <button class="level-num-btn" data-level="2">2</button>
+                    <button class="level-num-btn" data-level="3">3</button>
+                    <button class="level-num-btn" data-level="4">4</button>
+                    <button class="level-num-btn" data-level="5">5</button>
+                    <button class="level-num-btn" data-level="6">6</button>
+                    <button class="level-num-btn" data-level="7">7</button>
+                    <button class="level-num-btn" data-level="8">8</button>
+                    <button class="level-num-btn" data-level="9">9</button>
+                    <button class="level-num-btn" data-level="10">10</button>
+                    <button class="level-num-btn" data-level="11">11</button>
+                    <button class="level-num-btn" data-level="12">12</button>
+                    <button class="level-num-btn" data-level="13">13</button>
+                    <button class="level-num-btn" data-level="14">14</button>
+                    <button class="level-num-btn" data-level="15">15</button>
+                </div>
+                <button id="backFromLevelSelect" class="menu-btn secondary">BACK TO DIFFICULTY</button>
+            </div>
+        </div>
+    </div>
+    <div id="instructionsScreen" class="screen">
+        <div class="menu-background">
+            <canvas id="instructionsCanvas" width="800" height="600"></canvas>
+        </div>
+        <div class="instructions-content">
+            <h2>EXTRACTION MANUAL</h2>
+            <div class="instructions-grid">
+                <div class="instruction-section">
+                    <h3>🚀 SHIP CONTROLS</h3>
+                    <div class="control-list">
+                        <div class="control-item">
+                            <span class="key">WASD</span>
+                            <span class="action">Control Extractor</span>
+                        </div>
+                        <div class="control-item">
+                            <span class="key">ARROWS</span>
+                            <span class="action">Alternative Controls</span>
+                        </div>
+                        <div class="control-item">
+                            <span class="key">P</span>
+                            <span class="action">Pause Extraction</span>
+                        </div>
+                        <div class="control-item">
+                            <span class="key">R</span>
+                            <span class="action">Restart Maze</span>
+                        </div>
+                        <div class="control-item">
+                            <span class="key">M</span>
+                            <span class="action">Toggle Sound</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="instruction-section">
+                    <h3>MISSION OBJECTIVE</h3>
+                    <div class="mission-info">
+                        <p>• Extract resources and reach EXIT</p>
+                        <p>• Avoid touching planets and structures</p>
+                        <p>• Complete maze as quickly as possible</p>
+                        <p>• Collect time bonuses for speed</p>
+                        <p>• Unlock harder maze configurations</p>
+                    </div>
+                </div>
+                <div class="instruction-section">
+                    <h3>OBSTACLES</h3>
+                    <div class="obstacle-info">
+                        <div class="obstacle-type">
+                            <span class="obstacle-name">Asteroids</span>
+                            <span class="obstacle-desc">Small space rocks</span>
+                        </div>
+                        <div class="obstacle-type">
+                            <span class="obstacle-name">Planets</span>
+                            <span class="obstacle-desc">Large celestial bodies</span>
+                        </div>
+                        <div class="obstacle-type">
+                            <span class="obstacle-name">Structures</span>
+                            <span class="obstacle-desc">Space stations & buildings</span>
+                        </div>
+                        <div class="obstacle-type">
+                            <span class="obstacle-name">Energy Fields</span>
+                            <span class="obstacle-desc">Dangerous barriers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="instruction-section">
+                    <h3>SCORING SYSTEM</h3>
+                    <div class="scoring-info">
+                        <p>• Faster completion = Higher score</p>
+                        <p>• Collect power-ups for bonuses</p>
+                        <p>• Perfect runs earn multipliers</p>
+                        <p>• Unlock achievements for mastery</p>
+                    </div>
+                </div>
+            </div>
+            <button id="backFromInstructions" class="menu-btn secondary">BACK TO MAIN MENU</button>
+        </div>
+    </div>
+    <div id="gameScreen" class="screen">
+        <div class="game-container">
+            <div class="game-header">
+                <div class="header-left">
+                    <h1>SPACE EXTRACTION</h1>
+                    <div class="difficulty-indicator">
+                        <span id="difficultyLabel">PLANETARY MAZE</span>
+                    </div>
+                </div>
+                <div class="game-stats">
+                    <div class="stat time">
+                        <div class="stat-info">
+                            <span class="stat-label">TIME</span>
+                            <span id="gameTime" class="stat-value">00:00</span>
+                        </div>
+                    </div>
+                    <div class="stat score">
+                        <div class="stat-info">
+                            <span class="stat-label">SCORE</span>
+                            <span id="score" class="stat-value">0</span>
+                        </div>
+                    </div>
+                    <div class="stat level">
+                        <div class="stat-info">
+                            <span class="stat-label">MAZE</span>
+                            <span id="currentLevel" class="stat-value">1</span>
+                        </div>
+                    </div>
+                    <div class="stat level-progress">
+                        <div class="stat-info">
+                            <span class="stat-label">PROGRESS</span>
+                            <span id="levelProgress" class="stat-value">1 / 15</span>
+                        </div>
+                    </div>
+                    <div class="stat health">
+                        <div class="stat-info">
+                            <span class="stat-label">HEALTH</span>
+                            <span id="playerHealth" class="stat-value">100</span>
+                        </div>
+                    </div>
+                    <div class="stat lives">
+                        <div class="stat-info">
+                            <span class="stat-label">LIVES</span>
+                            <span id="playerLives" class="stat-value">3</span>
+                        </div>
+                    </div>
+                    <div class="stat best">
+                        <div class="stat-info">
+                            <span class="stat-label">BEST</span>
+                            <span id="bestTime" class="stat-value">--:--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="game-area">
+                <canvas id="gameCanvas" width="1200" height="800"></canvas>
+                <div class="hud">
+                    <div class="extraction-section">
+                        <div class="nav-label">EXTRACTION STATUS</div>
+                        <div class="nav-container">
+                            <div class="nav-item">
+                                <span id="distanceToExit">Distance to Exit: Calculating...</span>
+                            </div>
+                            <div class="nav-item">
+                                <span id="collisionWarning">Extraction Path Clear</span>
+                            </div>
+                            <div class="nav-item">
+                                <span id="speedometer">Speed: 0 km/h</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="minimap-section">
+                        <div class="minimap-label">MAZE OVERVIEW</div>
+                        <div class="minimap">
+                            <canvas id="minimapCanvas" width="150" height="120"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-controls">
+                    <button id="pauseGameBtn" class="control-btn">PAUSE</button>
+                    <button id="restartGameBtn" class="control-btn">RESTART</button>
+                    <button id="nextMazeBtn" class="control-btn hidden"> NEXT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="gameOverScreen" class="overlay hidden">
+        <div class="overlay-content game-over">
+            <div class="game-over-header">
+                <h2 id="gameOverTitle">EXTRACTION FAILED</h2>
+            </div>
+            <p class="game-over-message" id="gameOverMessage">Your ship collided with an obstacle!</p>
+            <div class="final-stats">
+                <div class="stat-row">
+                    <span class="stat-label">Completion Time:</span>
+                    <span id="finalTime" class="stat-value">00:00</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Final Score:</span>
+                    <span id="finalScore" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Maze Level:</span>
+                    <span id="finalLevel" class="stat-value">1</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Difficulty:</span>
+                    <span id="finalDifficulty" class="stat-value">PLANETARY MAZE</span>
+                </div>
+                <div class="stat-row" id="newRecordRow" style="display: none;">
+                    <span class="stat-label">NEW RECORD!</span>
+                    <span class="stat-value">Personal Best</span>
+                </div>
+            </div>
+            <div class="game-over-buttons">
+                <button id="restartBtn" class="game-btn primary">RETRY MAZE</button>
+                <button id="nextLevelBtn" class="game-btn" style="display: none;">NEXT MAZE</button>
+                <button id="mainMenuBtn" class="game-btn secondary">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+    <div id="pauseScreen" class="overlay hidden">
+        <div class="overlay-content pause">
+            <h2>EXTRACTION PAUSED</h2>
+            <div class="pause-stats">
+                <p>Current Time: <span id="pauseTime">00:00</span></p>
+                <p>Current Score: <span id="pauseScore">0</span></p>
+            </div>
+            <div class="pause-buttons">
+                <button id="resumeBtn" class="game-btn primary">RESUME EXTRACTION</button>
+                <button id="restartPauseBtn" class="game-btn">RESTART MAZE</button>
+                <button id="mainMenuPauseBtn" class="game-btn secondary">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+    <div id="successScreen" class="overlay hidden">
+        <div class="overlay-content success">
+            <div class="success-header">
+                <h2>MAZE COMPLETED!</h2>
+            </div>
+            <p class="success-message">Excellent navigation! You've successfully escaped the maze!</p>
+            <div class="success-stats">
+                <div class="stat-row">
+                    <span class="stat-label">Completion Time:</span>
+                    <span id="successTime" class="stat-value">00:00</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Final Score:</span>
+                    <span id="successScore" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Time Bonus:</span>
+                    <span id="timeBonus" class="stat-value">0</span>
+                </div>
+                <div class="stat-row" id="perfectRunRow" style="display: none;">
+                    <span class="stat-label">PERFECT RUN!</span>
+                    <span class="stat-value">No Collisions</span>
+                </div>
+            </div>
+            <div class="success-buttons">
+                <button id="nextMazeSuccessBtn" class="game-btn primary">NEXT MAZE</button>
+                <button id="retryMazeBtn" class="game-btn">RETRY MAZE</button>
+                <button id="mainMenuSuccessBtn" class="game-btn secondary">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+    <div id="loadingScreen" class="overlay hidden">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <h2>GENERATING MAZE</h2>
+            </div>
+            <div class="loading-bar">
+                <div id="loadingProgress" class="loading-fill"></div>
+            </div>
+            <div class="loading-text">
+                <p id="loadingMessage">Calculating optimal pathways...</p>
+            </div>
+        </div>
+    </div>
+    <script src="js/maze-generator.js"></script>
+    <script src="js/obstacles.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/enemy.js"></script>
+    <script src="js/projectile.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+    
+</body>
+</html>
