@@ -224,11 +224,33 @@ class Player {
   mine(obstacleManager, particleSystem, deltaTime) {
     const obstacles = obstacleManager.getObstacles()
     for (const obstacle of obstacles) {
-      const distance = obstacle.getDistance(this.x, this.y)
+      const dx = this.x - obstacle.x
+      const dy = this.y - obstacle.y
+      const distance = Math.sqrt(dx * dx + dy * dy)
       if (distance <= this.miningRange + obstacle.size) {
         this.isMining = true
-        const resource = obstacle.mine(deltaTime, this.miningEfficiency * this.upgrades.miningLevel)
-        if (resource) {
+        
+        // Initialize mining properties if they don't exist
+        if (!obstacle.miningProgress) {
+          obstacle.miningProgress = 0
+          obstacle.resources = Math.floor(obstacle.size / 10) + 1
+          obstacle.resourceType = obstacle.type === 'asteroid' ? 'crystal' : 'metal'
+        }
+        
+        // Mine the obstacle
+        obstacle.miningProgress += deltaTime * this.miningEfficiency * this.upgrades.miningLevel
+        
+        if (obstacle.miningProgress >= 1.0 && obstacle.resources > 0) {
+          obstacle.miningProgress = 0
+          obstacle.resources--
+          
+          const resource = {
+            type: obstacle.resourceType,
+            amount: 1,
+            x: obstacle.x,
+            y: obstacle.y
+          }
+          
           if (window.game) {
             window.game.playSound("mining")
           }
@@ -237,6 +259,7 @@ class Player {
           particleSystem.createMiningEffect(resource.x, resource.y)
           particleSystem.createResourcePickup(resource.x, resource.y, resource.type)
         }
+        
         particleSystem.createMiningEffect(this.x + (obstacle.x - this.x) * 0.5, this.y + (obstacle.y - this.y) * 0.5)
         break 
       }
@@ -290,7 +313,6 @@ class Player {
       mining: { rare: 20 * this.upgrades.miningLevel },
       shield: { crystals: 25, metals: 25, rare: 25 },
     }
-
     const cost = costs[type]
     if (!cost) return false
     if (cost.crystals && this.resources.crystals < cost.crystals) return false
@@ -319,7 +341,6 @@ class Player {
         this.upgrades.shieldLevel++
         break
     }
-
     return true
   }
   render(ctx) {
@@ -370,7 +391,6 @@ class Player {
       ctx.globalAlpha = 1
     }
   }
-
   renderTrail(ctx) {
     if (this.trailPoints.length < 2) return
 
@@ -391,7 +411,6 @@ class Player {
 
     ctx.restore()
   }
-
   getBounds() {
     return {
       x: this.x - this.size,
@@ -400,7 +419,6 @@ class Player {
       height: this.size * 2,
     }
   }
-
   reset(x, y) {
     this.x = x
     this.y = y
